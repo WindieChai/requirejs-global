@@ -2,25 +2,24 @@
 define(function () {
     "use strict";
 
-    function ensure (parent, name, callback) {
-        var names = name.split("."),
-            actualName = names[0],
+    function ensure (parent, names, callback) {
+        var actualName = names[0],
             timeout = 100;
 
         if (typeof parent[actualName] === "undefined") {
             setTimeout(function () {
-                ensure(parent, name, callback);
+                ensure(parent, names, callback);
             }, timeout);
         } else if (names.length === 1) {
             callback(parent[actualName]);
         } else {
             names.shift();
-            ensure(parent[actualName], names.join("."), callback);
+            ensure(parent[actualName], names, callback);
         }
     }
 
     function load (name, req, onload) {
-        ensure(window, name, onload);
+        ensure(window, name.split("."), onload);
     }
 
     return {
