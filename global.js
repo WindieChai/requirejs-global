@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: 0 */
-define("global", [], function () {
+define(function () {
     "use strict";
 
     function ensure (parent, name, callback) {
